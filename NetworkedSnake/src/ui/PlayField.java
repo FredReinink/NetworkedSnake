@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -7,12 +8,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.SystemColor;
 import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
 import exception.GridIndexOutOfBounds;
@@ -25,6 +28,7 @@ public class PlayField extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel gridComponents[][];
+	private JPanel messagePanel;
 	
 	private Dimension scrnSize;
 	
@@ -47,7 +51,28 @@ public class PlayField extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	public void createGrid(int gridWidth)
+	public void showMessage(String message)
+	{
+		messagePanel.removeAll();
+
+		JTextArea messageLabel = new JTextArea(message);
+		messageLabel.setEditable(false);
+		messageLabel.setLineWrap(true);
+		messageLabel.setOpaque(false);
+		messagePanel.add(messageLabel);
+		
+		display();
+	}
+	
+	public void createFrame(int gridWidth)
+	{
+		createGrid(gridWidth);
+		createMessagePanel();
+		
+		display();
+	}
+	
+	private void createGrid(int gridWidth)
 	{
 		gridComponents = new JPanel[gridWidth][gridWidth];
 		
@@ -82,13 +107,33 @@ public class PlayField extends JFrame{
 		}
 		
 		add(gridPanel);
-		
-		display();
 	}
+	
+	private void createMessagePanel()
+	{
+		messagePanel = new JPanel();
+		messagePanel.setLayout(new BorderLayout());
+		messagePanel.setPreferredSize(new Dimension(100, 100));
+		
+		add(messagePanel);
+	}
+
 	
 	public void setColor(int x, int y, Color color)
 	{
 		gridComponents[x][y].setBackground(color);
+		display();
+	}
+	
+	public Color getColor(int x, int y)
+	{
+		return gridComponents[x][y].getBackground();
+	}
+	
+	public void clear()
+	{
+		getContentPane().removeAll();
+		
 		display();
 	}
 	
@@ -97,4 +142,6 @@ public class PlayField extends JFrame{
 		pack();
 		setVisible(true);
 	}
+	
+	//add component listener to recreate jpanels upon resize
 }
