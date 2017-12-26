@@ -19,16 +19,16 @@ public class InputEvents implements KeyListener{
 		switch (e.getKeyCode())
 		{
 		case KeyEvent.VK_W:
-			GameManager.move(DIRECTION.UP);
+			GameManager.setDirection("UP");
 			break;
 		case KeyEvent.VK_S:
-			GameManager.move(DIRECTION.DOWN);
+			GameManager.setDirection("DOWN");
 			break;
 		case KeyEvent.VK_A:
-			GameManager.move(DIRECTION.LEFT);
+			GameManager.setDirection("LEFT");
 			break;
 		case KeyEvent.VK_D:
-			GameManager.move(DIRECTION.RIGHT);
+			GameManager.setDirection("RIGHT");
 			break;
 		}
 	}

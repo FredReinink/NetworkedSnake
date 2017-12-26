@@ -17,6 +17,14 @@ public class Coordinate implements Cloneable
 	public int x;
 	public int y;
 	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
 	public boolean equal(Coordinate coord)
 	{
 		if (x == coord.x && y == coord.y)
