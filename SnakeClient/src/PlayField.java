@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -15,6 +17,54 @@ import javax.swing.JTextArea;
 
 public class PlayField extends JFrame{
 
+	//calls when window changes
+	private WindowListener winListener = new WindowListener(){
+
+		@Override
+		public void windowActivated(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void windowClosed(WindowEvent e) {
+			// TODO Auto-generated method stub
+			GameManager.closeSocket();
+			
+		}
+
+		@Override
+		public void windowClosing(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void windowDeactivated(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void windowDeiconified(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void windowIconified(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void windowOpened(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
+	
 	/**
 	 * 
 	 */
@@ -41,7 +91,8 @@ public class PlayField extends JFrame{
 		
 		setLayout(new FlowLayout());
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//only 1 jframe will be used
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 	public void showMessage(String message)
@@ -61,6 +112,8 @@ public class PlayField extends JFrame{
 	{
 		createGrid(gridWidth);
 		createMessagePanel();
+		
+		addWindowListener(winListener);
 		
 		display();
 	}

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 import javax.swing.Timer;
 
@@ -23,6 +24,8 @@ public final class GameManager {
 	private static ObjectOutputStream out;
 	
 	private static ObjectInputStream in;
+	
+	private BufferedReader scanner;
 	
 	protected static PlayField field;
 	
@@ -47,9 +50,21 @@ public final class GameManager {
 		int delay = 500;
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
+				//System.out.println("check");
 				try {
-					if (in.read() != 0) {
-						Coordinate move = (Coordinate) in.readObject();
+					if (scanner.ready() && scanner.readLine().equals("exit"))
+					{
+						closeServer();
+						System.exit(0);
+					}
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+				try {
+					Coordinate move;
+					if (in.available() > 0 && (move = (Coordinate) in.readObject()) != null) {
 						player2.setDirection(move);
 					}
 				} catch (ClassNotFoundException e) {
@@ -57,6 +72,7 @@ public final class GameManager {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+
 				for (Player p : playerList) {
 					p.move();
 				}
@@ -75,6 +91,21 @@ public final class GameManager {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.exit(0);
+		}
+	}
+	
+	public static void closeServer()
+	{
+		try {
+			System.out.println("server close socket");
+			out.close();
+			in.close();
+			clientSocket.close();
+			serverSocket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -89,11 +120,15 @@ public final class GameManager {
 	
 	GameManager()
 	{
+		scanner = new BufferedReader(new InputStreamReader(System.in));
+		
 		player1 = new Player(this);
 		player2 = new Player(this);
 		playerList.add(player1);
 		playerList.add(player2);
+		
 		initializeUI();
+
 		gameTicks();
 	}
 	

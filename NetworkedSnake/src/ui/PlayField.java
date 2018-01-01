@@ -39,7 +39,7 @@ public class PlayField extends JFrame{
 	 */
 	public PlayField()
 	{
-		setTitle("Very snek");
+		setTitle("server");
 		
 		scrnSize = Toolkit.getDefaultToolkit().getScreenSize();
 		

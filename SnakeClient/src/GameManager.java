@@ -40,6 +40,18 @@ public class GameManager {
 		}
 	}
 	
+	public static void closeSocket()
+	{
+		try {
+			System.out.println("close client");
+			in.close();
+			out.close();
+			socket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public void initializeUI()
 	{
