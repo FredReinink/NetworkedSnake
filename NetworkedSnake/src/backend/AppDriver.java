@@ -4,6 +4,8 @@ public class AppDriver {
 
 	public static void main (String args[])
 	{
-		GameManager.getInstance().initializeUI();
+		int portNumber = 6533;
+		GameManager.server(portNumber);
+		GameManager gm = new GameManager();
 	}
 }
