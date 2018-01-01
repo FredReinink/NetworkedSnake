@@ -15,7 +15,7 @@ import ui.PlayField;
 
 import utilities.Coordinate;
 
-public class GameManager {
+public final class GameManager {
 	
 	protected static PlayField field;
 	
@@ -30,7 +30,7 @@ public class GameManager {
 	//use as a directional vector from last move step
 	private static Coordinate lastDirection;
 	
-	private static String direction;
+	private static Coordinate newDirection;
 	
 	private static int snakeLength = 10;
 	
@@ -46,34 +46,33 @@ public class GameManager {
 		return coordinateList;
 	}
 	
-	public static String getDirection() {
-		return direction;
+	public static Coordinate getDirection() {
+		return newDirection;
 	}
 	
-	public static void setDirection() {
+	public static void setRandomDirection() {
 		Random rand = new Random();
 		int n = rand.nextInt(4);
 		if (n == 0) {
-			direction = "UP";
+			newDirection = Coordinate.UP;
 		}
 		else if (n == 1) {
-			direction = "RIGHT";
+			newDirection = Coordinate.RIGHT;
 		}
 		else if (n == 2) {
-			direction = "DOWN";
+			newDirection = Coordinate.DOWN;
 		}
 		else if (n == 3) {
-			direction = "LEFT";
+			newDirection = Coordinate.LEFT;
 		}
 	}
 
-	public static void setDirection(String newDirection) {
-		int d1 = numberDirection(newDirection);
-		int d2 = numberDirection(direction);
-		if (Math.max(d1,d2)-Math.min(d1,d2) != 2) { //can't reverse directions
-			direction = newDirection;
-		}else {
+	public static void setDirection(Coordinate inputDirection) {
+		if (!gm.validMove(inputDirection)) {
 			field.showMessage("invalid move");
+		}
+		else {
+			newDirection = inputDirection;
 		}
 	}
 	
@@ -81,7 +80,7 @@ public class GameManager {
 		  int delay = 500;
 		  ActionListener taskPerformer = new ActionListener() {
 		      public void actionPerformed(ActionEvent evt) {
-		    	  move(direction);
+		    	  move(newDirection);
 		    	  createFood();
 		      }
 		  };
@@ -106,7 +105,7 @@ public class GameManager {
 	
 	GameManager()
 	{
-		setDirection();
+		setRandomDirection();
 		coordinateList = new LinkedList<Coordinate>();
 		generateSnake();
 		gameTicks();
@@ -130,46 +129,23 @@ public class GameManager {
 		field.addKeyListener(new InputEvents());
 	}
 	
-	public static void move(String direction)
+	public static void move(Coordinate direction)
 	{
 		//y is flipped as top left is coord (0,0) and bottom right is coord (gridWidth,gridWidth)
+		lastCoordinate.add(direction);
+		field.showMessage("(" + direction.x + ", " + direction.y + ")");
 		
-		switch (direction)
-		{
-			case "UP":
-				lastCoordinate.y--;
-				field.showMessage("up");
-				break;
-			case "DOWN":
-				lastCoordinate.y++;
-				field.showMessage("down");
-				break;
-			case "RIGHT":
-				lastCoordinate.x++;
-				field.showMessage("right");
-				break;
-			case "LEFT":
-				lastCoordinate.x--;
-				field.showMessage("left");
-				break;
-		}
-		
-		if (!gm.validGridIndex())
-		{
+		if (!gm.validGridIndex()) {
 			field.showMessage("snake is out of bounds");
-			lastCoordinate = lastCoordinate.add(lastDirection.negate());
+			lastCoordinate.add(lastDirection.negate());
+			//negate back
+			lastDirection.negate();
 		}
-		/**else if (!gm.validMove(lastCoordinate))
-		{
-			field.showMessage("invalid move");
-			lastCoordinate = lastCoordinate.add(lastDirection);
-		}*/
-		else
-		{
+		else {
 			try {
 				if (coordinateList.size() > 1)
 				{
-					lastDirection = lastCoordinate.subtract(coordinateList.get(coordinateList.size() - 1));
+					lastDirection = direction;
 					//System.out.println(lastDirection.x + " : " + lastDirection.y);
 				}
 				coordinateList.add((Coordinate) lastCoordinate.clone());
@@ -180,8 +156,7 @@ public class GameManager {
 			}
 		}
 		
-		if (coordinateList.size() > snakeLength)
-		{
+		if (coordinateList.size() > snakeLength) {
 			Coordinate snakeTailCoord = coordinateList.remove(0);
 			field.setColor(snakeTailCoord.x, snakeTailCoord.y, Color.white);
 		}
@@ -199,29 +174,15 @@ public class GameManager {
 	
 	private boolean validMove(Coordinate nextMoveCoord)
 	{
-		if (coordinateList.size() > 1 && coordinateList.get(coordinateList.size() - 2).equal(nextMoveCoord))
+		//lastDirection and nextMoveCoord are both directional coordinates (vectors). When the negation of nextMoveCoord is equal to lastDirection that means they're opposite
+		if (nextMoveCoord.negate().equal(lastDirection))
 		{
+			//negate back
+			nextMoveCoord.negate();
 			return false;
 		}
+		//negate back
+		nextMoveCoord.negate();
 		return true;
 	}
-	
-	public static int numberDirection(String aDirection) {
-		int n;
-		if (aDirection.equals("UP")) {
-			n = 0;
-		}else if (aDirection.equals("RIGHT")) {
-			n = 1;
-		}else if (aDirection.equals("DOWN")) {
-			n = 2;
-		}else if (aDirection.equals("LEFT")) {
-			n = 3;
-		}else {
-			System.out.println("number error");
-			field.showMessage("number error");
-			n = -1;
-		}
-		return n;
-	}
-
 }
