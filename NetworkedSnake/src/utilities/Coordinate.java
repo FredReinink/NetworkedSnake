@@ -35,7 +35,7 @@ public class Coordinate implements Cloneable
 	
 	public boolean equal(Coordinate coord)
 	{
-		if (x == coord.x && y == coord.y)
+		if (coord != null && x == coord.x && y == coord.y)
 		{
 			return true;
 		}
