@@ -22,12 +22,15 @@ public class Food {
 
 	public Food() {
 		Random rand = new Random();
-		List<Coordinate> coordinateList = GameManager.getCoordinateList();
+		List<Player> playerList = GameManager.getPlayerList();
 		List<Integer> coordinateXList = new ArrayList<Integer>();
 		List<Integer> coordinateYList= new ArrayList<Integer>();
-		for (Coordinate c : coordinateList) {
-			coordinateXList.add(c.getX());
-			coordinateYList.add(c.getY());
+		for (Player p : playerList) {
+			List<Coordinate> coordinateList = p.getCoordinateList();
+			for (Coordinate c : coordinateList) {
+				coordinateXList.add(c.getX());
+				coordinateYList.add(c.getY());
+			}
 		}
 		boolean valid = false;
 		while (!valid){
