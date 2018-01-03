@@ -18,7 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
+import backend.GameManager;
 import exception.GridIndexOutOfBounds;
+import utilities.Coordinate;
 
 public class PlayField extends JFrame{
 
@@ -119,8 +121,19 @@ public class PlayField extends JFrame{
 	}
 
 	
+	public void setColor(Coordinate coord, Color color)
+	{
+		//a point is being set, notify GameManager of change
+		GameManager.notifyUpdate(coord, color);
+		
+		gridComponents[coord.x][coord.y].setBackground(color);
+		display();
+	}
 	public void setColor(int x, int y, Color color)
 	{
+		//a point is being set, notify GameManager of change
+		GameManager.notifyUpdate(new Coordinate(x, y), color);
+		
 		gridComponents[x][y].setBackground(color);
 		display();
 	}
