@@ -7,7 +7,7 @@ import utilities.Coordinate;
 
 /*
  * Used by server to send changes on coordinates in the playfield.
- * NOTE: since servers can vary in grid width, allow server to initialize client to the same parameters as server
+ * Initialize = true when it's the first message to the client. The coordinate is the playfield size, the client is given their playerID and color is nothing
  */
 public class ServerMessage implements Serializable{
 

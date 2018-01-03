@@ -6,7 +6,6 @@ public class ClientAppDriver {
 		int portNumber = 6533;
 		String hostName = "localhost";
 		GameManager.connectToServer(hostName, portNumber);
-		GameManager.initializeUI();
 		GameManager.startListening();
 	}
 

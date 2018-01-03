@@ -15,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import utilities.Coordinate;
+
 public class PlayField extends JFrame{
 
 	//calls when window changes
@@ -168,6 +170,12 @@ public class PlayField extends JFrame{
 	public void setColor(int x, int y, Color color)
 	{
 		gridComponents[x][y].setBackground(color);
+		display();
+	}
+	
+	public void setColor(Coordinate coord, Color color)
+	{
+		gridComponents[coord.x][coord.y].setBackground(color);
 		display();
 	}
 	

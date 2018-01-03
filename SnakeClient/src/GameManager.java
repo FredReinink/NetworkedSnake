@@ -17,7 +17,7 @@ public class GameManager {
 	
 	protected static PlayField field;
 	
-	protected final static int gridWidth = 20;
+	protected static int gridWidth = 20;
 	
 	private static SocketChannel socketChannel;
 	private static ByteBuffer buffer;
@@ -61,7 +61,7 @@ public class GameManager {
 		}
 	}
 	
-	public static void notifyServerClient()
+	private static void notifyServerClient()
 	{
 		if ((playerID != 0 && socketChannel.isConnected()) || !socketChannel.isConnected()) {
 			return;
@@ -101,21 +101,31 @@ public class GameManager {
 	public static void startListening()
 	{
 		ByteBuffer buffer = ByteBuffer.allocate(309);//ServerMessage is 309 bytes
+		
 		while(true)
 		{
 			try {
 				socketChannel.read(buffer);
 				
+				if (buffer.position() == 0)
+				{
+					continue;
+				}
+				
 				ServerMessage message = ((ServerMessage) ObjectByteConversion.toObject(buffer.array()));
 				
-				if (buffer.position() != 0)
-				{
-					if (message.initialize)
-					{
+				if (buffer.position() != 0) {
+					if (message.initialize) {
 						System.out.println("initial, my id is : " + message.playerID);
 						playerID = message.playerID;
+						gridWidth = message.coord.x;
+						
+						initializeUI();
 					}
-					System.out.println("change at position : (" + message.coord.x + ", " + message.coord.y + ") to color : " + message.color);
+					else{
+						System.out.println("change at position : (" + message.coord.x + ", " + message.coord.y + ") to color : " + message.color);
+						field.setColor(message.coord, message.color);
+					}
 				}
 				buffer.clear();
 			} catch (IOException e) {
@@ -138,5 +148,4 @@ public class GameManager {
 		//add input to ui
 		field.addKeyListener(new InputEvents());
 	}
-
 }

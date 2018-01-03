@@ -230,15 +230,8 @@ public final class GameManager {
 			    	Player player = (Player) key.attachment();
 			    	
 			    	if (!player.clientInitialized) {
-			    		//then send initial message with playerID
-				    	message.playerID = player.getPlayerID();
-				    	message.initialize = true;
-				    	byte[] initBytes = ObjectByteConversion.toBytes(message);
-				    	ByteBuffer initBuffer = ByteBuffer.allocate(309);
-				    	initBuffer = ByteBuffer.wrap(initBytes);
-				    	((SocketChannel) key.channel()).write(initBuffer);
-				    	
-				    	player.clientInitialized = true;
+			    		//send initial message with playerID, the coordinate is the size of the playfield
+			    		sendInitialMessage(player, (SocketChannel) key.channel());
 			    	}
 			    	
 			    	((SocketChannel) key.channel()).write(buffer);
@@ -253,6 +246,19 @@ public final class GameManager {
 		updateMessages.clear();
 		
 		//System.out.println("is dispatch thread : " + java.awt.EventQueue.isDispatchThread());
+	}
+	
+	private static void sendInitialMessage(Player player, SocketChannel channel) throws IOException
+	{
+    	ServerMessage newMessage = new ServerMessage(player.getPlayerID(), new Coordinate(gridWidth, gridWidth), Color.white, true);
+    	byte[] initBytes = ObjectByteConversion.toBytes(newMessage);
+    	ByteBuffer initBuffer = ByteBuffer.allocate(309);
+    	initBuffer = ByteBuffer.wrap(initBytes);
+    	channel.write(initBuffer);
+    	
+    	player.clientInitialized = true;
+    	
+    	//if colors are preset as an integer corresponding to a color, i can send whole board in 1 message by x = grid coordinate in wrapped order and y as the preset color.
 	}
 	
 	public static void server(int portNumber) {
