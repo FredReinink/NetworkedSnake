@@ -6,6 +6,10 @@ import java.awt.event.KeyListener;
 import backend.GameManager;
 import backend.Player;
 import utilities.Coordinate;
+<<<<<<< HEAD
+import utilities.CoordinatePresets;
+=======
+>>>>>>> master
 
 public class InputEvents implements KeyListener{
 	
@@ -17,6 +21,18 @@ public class InputEvents implements KeyListener{
 		switch (e.getKeyCode())
 		{
 		case KeyEvent.VK_W:
+<<<<<<< HEAD
+			player.setDirection(CoordinatePresets.UP);
+			break;
+		case KeyEvent.VK_S:
+			player.setDirection(CoordinatePresets.DOWN);
+			break;
+		case KeyEvent.VK_A:
+			player.setDirection(CoordinatePresets.LEFT);
+			break;
+		case KeyEvent.VK_D:
+			player.setDirection(CoordinatePresets.RIGHT);
+=======
 			player.setDirection(Coordinate.UP);
 			break;
 		case KeyEvent.VK_S:
@@ -27,6 +43,7 @@ public class InputEvents implements KeyListener{
 			break;
 		case KeyEvent.VK_D:
 			player.setDirection(Coordinate.RIGHT);
+>>>>>>> master
 			break;
 		}
 	}
