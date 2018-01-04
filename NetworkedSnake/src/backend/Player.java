@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 import utilities.Coordinate;
-<<<<<<< HEAD
 import utilities.CoordinatePresets;
 
 public class Player {
@@ -15,14 +14,6 @@ public class Player {
 	
 	private int playerID;
 	
-=======
-
-public class Player {
-
-	//snake coords and length
-	//last node of list is head of the snake
-
->>>>>>> master
 	private Coordinate lastCoordinate;
 	//use as a directional vector from last move step
 	private Coordinate lastDirection;
@@ -33,13 +24,9 @@ public class Player {
 	
 	private int snakeLength = 10;
 
-<<<<<<< HEAD
 	public int getPlayerID() {
 		return playerID;
 	}
-	
-=======
->>>>>>> master
 	public List<Coordinate> getCoordinateList() {
 		return coordinateList;
 	}
@@ -52,13 +39,8 @@ public class Player {
 		return newDirection;
 	}
 	
-<<<<<<< HEAD
 	public Player(int playerID) {
 		this.playerID = playerID;
-		
-=======
-	public Player(GameManager gameManager) {
->>>>>>> master
 		coordinateList = new LinkedList<Coordinate>();
 		generateSnake();
 		setRandomDirection();
@@ -66,13 +48,10 @@ public class Player {
 	
 	public void generateSnake() {
 		Random rand = new Random();
-<<<<<<< HEAD
+		
 		int x = rand.nextInt(GameManager.gridWidth-4) + 4; // 2 square buffer around borders
 		int y = rand.nextInt(GameManager.gridWidth-4) + 4;
-=======
-		int x = rand.nextInt(GameManager.gridWidth-4) + 2; // 2 square buffer around borders
-		int y = rand.nextInt(GameManager.gridWidth-4) + 2;
->>>>>>> master
+
 		lastCoordinate = new Coordinate(x,y);
 	}
 	
@@ -80,7 +59,6 @@ public class Player {
 		Random rand = new Random();
 		int n = rand.nextInt(4);
 		if (n == 0) {
-<<<<<<< HEAD
 			newDirection = CoordinatePresets.UP;
 		}
 		else if (n == 1) {
@@ -91,18 +69,6 @@ public class Player {
 		}
 		else if (n == 3) {
 			newDirection = CoordinatePresets.LEFT;
-=======
-			newDirection = Coordinate.UP;
-		}
-		else if (n == 1) {
-			newDirection = Coordinate.RIGHT;
-		}
-		else if (n == 2) {
-			newDirection = Coordinate.DOWN;
-		}
-		else if (n == 3) {
-			newDirection = Coordinate.LEFT;
->>>>>>> master
 		}
 	}
 
@@ -135,11 +101,8 @@ public class Player {
 					//System.out.println(lastDirection.x + " : " + lastDirection.y);
 				}
 				coordinateList.add((Coordinate) lastCoordinate.clone());
-<<<<<<< HEAD
+				
 				GameManager.field.setColor(lastCoordinate, Color.blue);
-=======
-				GameManager.field.setColor(lastCoordinate.x, lastCoordinate.y, Color.blue);
->>>>>>> master
 			} catch (CloneNotSupportedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -148,11 +111,7 @@ public class Player {
 		
 		if (coordinateList.size() > snakeLength) {
 			Coordinate snakeTailCoord = coordinateList.remove(0);
-<<<<<<< HEAD
 			GameManager.field.setColor(snakeTailCoord, Color.white);
-=======
-			GameManager.field.setColor(snakeTailCoord.x, snakeTailCoord.y, Color.white);
->>>>>>> master
 		}
 	}
 	

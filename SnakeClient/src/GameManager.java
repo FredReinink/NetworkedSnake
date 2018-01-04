@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -13,14 +13,11 @@ import utilities.CoordinatePresets;
 import utilities.ObjectByteConversion;
 
 import java.io.*;
-=======
->>>>>>> master
 
 public class GameManager {
 	
 	protected static PlayField field;
 	
-<<<<<<< HEAD
 	protected static int gridWidth = 20;
 	
 	private static SocketChannel socketChannel;
@@ -145,16 +142,6 @@ public class GameManager {
 	}
 	
 	public static void initializeUI()
-=======
-	protected final static int gridWidth = 20;
-
-	public GameManager() {
-		initializeUI();
-	}
-	
-	
-	public void initializeUI()
->>>>>>> master
 	{
 		field = new PlayField();
 		//create grid
@@ -162,8 +149,4 @@ public class GameManager {
 		//add input to ui
 		field.addKeyListener(new InputEvents());
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 }
