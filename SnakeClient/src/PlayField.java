@@ -6,8 +6,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
+<<<<<<< HEAD
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+=======
+>>>>>>> master
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -15,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+<<<<<<< HEAD
 import utilities.Coordinate;
 
 public class PlayField extends JFrame{
@@ -67,6 +71,10 @@ public class PlayField extends JFrame{
 		
 	};
 	
+=======
+public class PlayField extends JFrame{
+
+>>>>>>> master
 	/**
 	 * 
 	 */
@@ -93,8 +101,12 @@ public class PlayField extends JFrame{
 		
 		setLayout(new FlowLayout());
 		
+<<<<<<< HEAD
 		//only 1 jframe will be used
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+=======
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+>>>>>>> master
 	}
 	
 	public void showMessage(String message)
@@ -115,8 +127,11 @@ public class PlayField extends JFrame{
 		createGrid(gridWidth);
 		createMessagePanel();
 		
+<<<<<<< HEAD
 		addWindowListener(winListener);
 		
+=======
+>>>>>>> master
 		display();
 	}
 	
@@ -173,12 +188,15 @@ public class PlayField extends JFrame{
 		display();
 	}
 	
+<<<<<<< HEAD
 	public void setColor(Coordinate coord, Color color)
 	{
 		gridComponents[coord.x][coord.y].setBackground(color);
 		display();
 	}
 	
+=======
+>>>>>>> master
 	public Color getColor(int x, int y)
 	{
 		return gridComponents[x][y].getBackground();

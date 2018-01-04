@@ -1,5 +1,6 @@
 package backend;
 
+<<<<<<< HEAD
 import java.io.*;
 import java.nio.*;
 import java.nio.channels.SelectionKey;
@@ -10,6 +11,8 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.awt.Color;
+=======
+>>>>>>> master
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ import message.ClientMessage;
 import message.ServerMessage;
 import ui.InputEvents;
 import ui.PlayField;
+<<<<<<< HEAD
 import utilities.Coordinate;
 import utilities.ObjectByteConversion;
 
@@ -52,6 +56,14 @@ public final class GameManager {
 	private static final int TICKS_INTERVAL = 250;//delay in ms
 	private static final int MAX_PLAYERS = 4;
 	protected final static int gridWidth = 40;
+=======
+
+public final class GameManager {
+	
+	protected static PlayField field;
+	
+	private static GameManager gm;
+>>>>>>> master
 	
 	private static List<ServerMessage> updateMessages;
 	
@@ -59,6 +71,7 @@ public final class GameManager {
 		return playerList;
 	}
 	
+<<<<<<< HEAD
 	public static List<Food> getFoodList(){
 		return foodList;
 	}
@@ -295,6 +308,33 @@ public final class GameManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+=======
+	private static List<Player> playerList = new ArrayList<Player>();
+	
+	public static List<Player> getPlayerList() {
+		return playerList;
+	}
+	
+	public static List<Food> getFoodList(){
+		return foodList;
+	}
+	
+	public void gameTicks() {
+		  int delay = 500;
+		  ActionListener taskPerformer = new ActionListener() {
+		      public void actionPerformed(ActionEvent evt) {
+		    	  for (Player p : playerList) {
+		    		  p.move();
+		    	  }
+		    	  createFood();
+		      }
+		  };
+		  new Timer(delay, taskPerformer).start();
+>>>>>>> master
+	}
+	
+	public void toClient() {
+		
 	}
 	
 	public void createFood() {
@@ -306,12 +346,27 @@ public final class GameManager {
 		}
 	}
 	
+<<<<<<< HEAD
 	private Player addPlayer()
 	{
 		Random rand = new Random();
 		int newID = 0;
 		//chance of getting 0 as new id(but very unlikely) - 0 is used as no id set for clients
 		while (newID == 0)
+=======
+	GameManager()
+	{
+		Player player1 = new Player(this);
+		Player player2 = new Player(this);
+		playerList.add(player1);
+		playerList.add(player2);
+		gameTicks();
+	}
+	
+	public static GameManager getInstance()
+	{
+		if (gm == null)
+>>>>>>> master
 		{
 			newID = rand.nextInt();
 		}
@@ -328,6 +383,7 @@ public final class GameManager {
 		updateMessages.add(message);
 	}
 	
+<<<<<<< HEAD
 	GameManager()
 	{
 		scanner = new BufferedReader(new InputStreamReader(System.in));
@@ -346,5 +402,7 @@ public final class GameManager {
 		//field.addKeyListener(new InputEvents());
 	}
 	
+=======
+>>>>>>> master
 
 }
