@@ -344,7 +344,7 @@ public final class GameManager {
 		buffer = ByteBuffer.allocate(1570);//size of 10 client messages. Hard coded for now, should determine size of each message later
 		
 		initializeUI();
-		addPlayer();
+		//addPlayer();
 		gameTicks();
 	}
 	
