@@ -95,7 +95,7 @@ public class Player {
 		lastCoordinate.add(newDirection);
 		GameManager.field.showMessage("(" + newDirection.x + ", " + newDirection.y + ")");
 		
-		if (!validGridIndex()) {
+		if (!validGridIndex() && lastCoordinate != null && lastDirection != null) {
 			GameManager.field.showMessage("snake is out of bounds");
 			lastCoordinate.add(lastDirection.negate());
 			//negate back

@@ -279,6 +279,7 @@ public final class GameManager {
 			
 			serverSocketChannel.bind(new InetSocketAddress("localhost", portNumber));
 			serverSocketChannel.configureBlocking(false);
+			
 			serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 			
 			updateMessages = new ArrayList<ServerMessage>();
