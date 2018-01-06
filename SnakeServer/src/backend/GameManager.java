@@ -169,7 +169,7 @@ public final class GameManager {
 
 		    	System.out.println("at position after read : " + buffer.position());
 		    	
-		    	if (buffer.position() == buffer.limit()) {
+		    	if (buffer.position() == buffer.limit() || buffer.position() % 157 != 0) {
 				    //shouldn't reach here if buffer allocated size is large, if buffer allocated is large (able to buffer 100 client messages in 1 tick) and reaches here then external program may have been used?
 		    		
 		    		keyIterator.remove();

@@ -132,8 +132,8 @@ public class Player {
 	}
 
 	public void kill(Iterator<Player> iterator) {
-		for (Coordinate c: coordinateList) {
-			GameManager.field.setColor(c, Color.white);
+		for (int i = 0; i < coordinateList.size() - 1; i++) {
+			GameManager.field.setColor(coordinateList.get(i), Color.white);
 		}
 		coordinateList.clear();
 		snakeLength = 0;
